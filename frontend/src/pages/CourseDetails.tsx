@@ -67,7 +67,7 @@ export default function CourseDetails() {
         theme: {
           color: "#2563EB"
         },
-        handler: function (response: any) {
+        handler: function () {
           alert("Payment successful! Unlocking your course...");
           // Wait for webhook to update DB, then reload
           setTimeout(() => {
@@ -77,7 +77,7 @@ export default function CourseDetails() {
       };
 
       const rzp = new (window as any).Razorpay(options);
-      rzp.on('payment.failed', function (response: any) {
+      rzp.on('payment.failed', function () {
         setBuyError("Payment failed or was cancelled.");
       });
       rzp.open();
