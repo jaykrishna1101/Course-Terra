@@ -52,7 +52,7 @@ def create_order():
         order_data = {
             "amount": amount_paise,
             "currency": "INR",
-            "receipt": f"receipt_{course_id}_{g.user.id}",
+            "receipt": f"rcpt_{str(course_id)[:8]}_{str(g.user.id)[:8]}",
             "notes": {
                 "course_id": course_id,
                 "user_id": g.user.id
