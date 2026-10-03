@@ -35,12 +35,52 @@ export default function CourseDetails() {
       navigate('/login');
       return;
     }
+
     try {
-      await fetchApi('/payments/create-order', {
+      // Load Razorpay script if not already loaded
+      if (!(window as any).Razorpay) {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.async = true;
+        document.body.appendChild(script);
+        await new Promise((resolve) => { script.onload = resolve; });
+      }
+
+      const res = await fetchApi('/payments/create-order', {
         method: 'POST',
         body: JSON.stringify({ course_id: course.id })
       });
-      // In the future, this will open Razorpay checkout
+
+      const { provider_order_id, amount_paise, currency } = res.data;
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: amount_paise,
+        currency: currency,
+        name: "Course Terra",
+        description: course.title,
+        order_id: provider_order_id,
+        prefill: {
+          name: user.user_metadata?.full_name || "",
+          email: user.email || ""
+        },
+        theme: {
+          color: "#2563EB"
+        },
+        handler: function (response: any) {
+          alert("Payment successful! Unlocking your course...");
+          // Wait for webhook to update DB, then reload
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        setBuyError("Payment failed or was cancelled.");
+      });
+      rzp.open();
     } catch (e: any) {
       setBuyError(e.message || 'Online payments are currently unavailable. Please check back soon.');
     }
