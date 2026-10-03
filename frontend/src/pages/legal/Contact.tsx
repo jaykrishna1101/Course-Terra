@@ -19,8 +19,8 @@ const Contact = () => {
           <div>
             <h3 className="font-semibold text-gray-900">Registered Address</h3>
             <p className="text-gray-600">
-              Na, Maharashtra<br/>
-              India, 411001
+              Nagpur, Maharashtra<br/>
+              India, 441108
             </p>
           </div>
           
@@ -31,7 +31,7 @@ const Contact = () => {
 
           <div>
             <h3 className="font-semibold text-gray-900">Phone Number</h3>
-            <p className="text-gray-600">+91 9999999999 (Operating Hours: Mon-Fri, 10 AM to 6 PM IST)</p>
+            <p className="text-gray-600">+91 9665486040 (Operating Hours: Mon-Fri, 10 AM to 6 PM IST)</p>
           </div>
         </div>
       </div>
