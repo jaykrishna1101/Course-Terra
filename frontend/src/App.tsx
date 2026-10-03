@@ -13,6 +13,12 @@ import Learning from './pages/Learning';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminCourseEdit from './pages/admin/AdminCourseEdit';
 
+// Legal Pages
+import Contact from './pages/legal/Contact';
+import Refund from './pages/legal/Refund';
+import Privacy from './pages/legal/Privacy';
+import Terms from './pages/legal/Terms';
+
 function App() {
   return (
     <AuthProvider>
@@ -23,6 +29,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/courses/:slug" element={<CourseDetails />} />
+            
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/refund" element={<Refund />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
