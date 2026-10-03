@@ -80,7 +80,8 @@ def create_order():
             }
         })
     except Exception as e:
-        return jsonify({"success": False, "error": {"code": "SERVER_ERROR", "message": "Failed to create order"}}), 500
+        print("Create order error:", str(e))
+        return jsonify({"success": False, "error": {"code": "SERVER_ERROR", "message": f"Failed to create order: {str(e)}"}}), 500
 
 @payments_bp.route('/verify', methods=['POST'])
 @require_auth
