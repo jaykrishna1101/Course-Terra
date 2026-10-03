@@ -64,7 +64,7 @@ def create_order():
         supabase.table("purchases").insert({
             "user_id": g.user.id,
             "course_id": course_id,
-            "provider": "razorpay",
+            "payment_provider": "razorpay",
             "provider_order_id": order['id'],
             "amount_paise": amount_paise,
             "currency": "INR",
