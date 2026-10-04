@@ -116,7 +116,7 @@ def webhook_razorpay():
         
         if course_id and user_id:
             # Update purchase
-            supabase.table("purchases").update({"status": "completed"}).eq("provider_order_id", order_id).execute()
+            supabase.table("purchases").update({"status": "paid"}).eq("provider_order_id", order_id).execute()
             # Grant enrollment if not exists
             existing = supabase.table("enrollments").select("*").eq("user_id", user_id).eq("course_id", course_id).execute()
             if not existing.data:
