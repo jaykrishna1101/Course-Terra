@@ -114,7 +114,13 @@ export default function Learning() {
               )}
               {currentLessonData?.signed_url && currentLessonData?.lesson_type === 'video' ? (
                  <div className="mb-8 rounded-lg overflow-hidden shadow-lg bg-black">
-                    <video controls controlsList="nodownload" src={currentLessonData.signed_url} className="w-full h-auto max-h-[600px]"></video>
+                    <video 
+                      controls 
+                      controlsList="nodownload" 
+                      onContextMenu={(e) => e.preventDefault()}
+                      src={currentLessonData.signed_url} 
+                      className="w-full h-auto max-h-[600px]"
+                    ></video>
                  </div>
               ) : currentLessonData?.signed_url ? (
                  <div className="mb-8">
