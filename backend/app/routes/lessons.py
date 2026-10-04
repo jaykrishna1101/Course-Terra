@@ -48,13 +48,19 @@ def get_lesson_content(lesson_id):
         # User has access, prepare content
         data_to_return = {
             "content": lesson.get("content"),
-            "external_url": lesson.get("external_url")
+            "external_url": lesson.get("external_url"),
+            "lesson_type": lesson.get("lesson_type")
         }
         
         # If storage_path exists, generate signed URL
         if lesson.get("storage_path"):
             # Generates a signed URL valid for 1 hour (3600 seconds)
-            signed_url = supabase.storage.from_("course-content").create_signed_url(lesson["storage_path"], 3600)
+            # Make sure storage_path doesn't include the bucket name if using from_
+            path = lesson["storage_path"]
+            if path.startswith("course-content/"):
+                path = path.replace("course-content/", "", 1)
+                
+            signed_url = supabase.storage.from_("course-content").create_signed_url(path, 3600)
             data_to_return["signed_url"] = signed_url.get("signedURL")
             
         return jsonify({"success": True, "data": data_to_return})

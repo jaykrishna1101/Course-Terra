@@ -112,12 +112,15 @@ export default function Learning() {
                   <a href={currentLessonData.external_url} target="_blank" rel="noreferrer" className="text-blue-400 underline">Open External Link</a>
                 </div>
               )}
-              {currentLessonData?.signed_url && (
+              {currentLessonData?.signed_url && currentLessonData?.lesson_type === 'video' ? (
+                 <div className="mb-8 rounded-lg overflow-hidden shadow-lg bg-black">
+                    <video controls controlsList="nodownload" src={currentLessonData.signed_url} className="w-full h-auto max-h-[600px]"></video>
+                 </div>
+              ) : currentLessonData?.signed_url ? (
                  <div className="mb-8">
-                    {/* Just providing a link for protected assets for now */}
                     <a href={currentLessonData.signed_url} target="_blank" rel="noreferrer" className="bg-gray-100 border border-gray-200 px-4 py-2 rounded text-brand font-medium hover:bg-gray-200 inline-block">Download / View Protected Asset</a>
                  </div>
-              )}
+              ) : null}
               <div className="prose prose-blue max-w-none text-gray-800">
                 {/* For text content */}
                 {currentLessonData?.content ? (
